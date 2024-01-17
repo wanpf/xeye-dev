@@ -77,9 +77,21 @@
       () => (_obj = JSON.decode(msg.body)) && (
         _verb = _obj.verb,
         _verb === 'enable-proxy' ? (
-          _cmd = ['.\\tools\\enable.cmd']
+          platform === 0 ? (
+            _cmd = ['.\\tools\\enable.cmd']
+          ) : platform === 1 ? (
+            _cmd = ['./tools/linux_enable.sh']
+          ) : (
+            _cmd = ['./tools/mac_enable.sh']
+          )
         ) : _verb === 'disable-proxy' ? (
-          _cmd = ['.\\tools\\disable.cmd']
+          platform === 0 ? (
+            _cmd = ['.\\tools\\disable.cmd']
+          ) : platform === 1 ? (
+            _cmd = ['./tools/linux_disable.sh']
+          ) : (
+            _cmd = ['./tools/mac_disable.sh']
+          )
         ) : _verb === 'ping' ? (
           platform === 0 ? (
             _cmd = 'ping ' + _obj.target
